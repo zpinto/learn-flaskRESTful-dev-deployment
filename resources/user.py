@@ -46,7 +46,6 @@ class UserRegister(Resource):
 
             return {"message": "User created successfully."}, 201
         except:
-            traceback.print_exc()
             return {"message": "An error occured creating the user"}, 500
 
 
