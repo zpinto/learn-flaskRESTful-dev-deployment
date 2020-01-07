@@ -1,3 +1,5 @@
+import traceback
+
 from flask_restful import Resource, reqparse
 from werkzeug.security import safe_str_cmp
 from bson import json_util
@@ -31,7 +33,8 @@ class UserRegister(Resource):
         try:
             user = mongo.db.users.find_one({"username": data["username"]})
         except:
-            return {"message": "An error occured creating the user"}, 500
+            traceback.print_exc()
+            return {"message": "An error occured looking up the user"}, 500
 
         if user:
             return {"message": "A user with that username already exists"}, 400
@@ -43,6 +46,7 @@ class UserRegister(Resource):
 
             return {"message": "User created successfully."}, 201
         except:
+            traceback.print_exc()
             return {"message": "An error occured creating the user"}, 500
 
 
