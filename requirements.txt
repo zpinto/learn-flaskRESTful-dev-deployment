@@ -4,3 +4,4 @@ Flask-JWT
 Flask-JWT-Extended
 Flask-PyMongo
 PyJWT
+uwsgi
