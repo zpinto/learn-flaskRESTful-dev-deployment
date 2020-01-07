@@ -9,12 +9,17 @@ Through this README and the rest of the repository, you will find detailed expla
 ## Prerequisites
 
 - Basic understanding of python syntax
+
 - Basic understanding of object oriented programming
+
 - Basic understanding of HTTP and what the different methods are:
+
   - GET: get a resource
   - POST: create a resource
   - PUT: update a resource
   - DELETE: delete a resource
+
+- Basic understanding of git
 
 ## Environment Setup
 
@@ -51,8 +56,10 @@ Postman is a great tool that allows us to test each endpoint of our API in devel
 ### FlaskRESTful [Documentation](https://flask-restful.readthedocs.io/en/latest/)
 
 - Flask
+
   - Micro web framework written in Python
   - Lightweight and flexible allowing developers lots of control over design and implementation
+
 - Flask-RESTful
   - An extension of Flask that helps developers build APIs that follow REST principles faster
   - Allows you to create resource classes that have HTTP methods as member functions
@@ -84,25 +91,51 @@ This file is also used by heroku for deployment when installing dependencies on 
 This is where the initial magic happens!
 
 - Create a Flask app called app
+
 - Add key value pairs to the config dict inside of app
+
   - Each is explained in the code via comments
+
 - Create a flaskRESTful api by passing the app into the Api constructor
+
 - Create a JWT authentication manager by passing app into the JWTManager constructor
+
 - Use jwt decorators to define callbacks for jwt behaviours in certain situations
+
   - Each is explained in the code via comments
+
 - Add resources to the api
+
   - api.add_resource takes the definition of the Resource class declared in the resources directory and the endpoint that resource's methods will be able to be called from
-- Initialize mongodb session and run app \*\*only if the variable **name** is equal to "**main**"
+
+- Initialize mongodb session and run app **only if the variable \_\_name\_\_ is equal to "\_\_main\_\_"**
   - This is only true when running the server locally during development
   - In production, run.py is executed instead
 
 ### db.py
 
+Creates a PyMongo client that is used to establish a session when it is imported in app.py or run.py and mongo.init_app(app)is called.
+
 ### blacklist.py
+
+Creates a set that holds blacklisted auth and refresh tokens. It is used in functions like check_if_token_in_blacklist().
 
 ### /resources
 
-#### **init**.py
+This holds all of the defined resources for the API. They are all subclasses of flaskRESTful's Resource class. Each of these resource classes can overide any of the HTTP methods.
+
+#### \_\_init\_\_.py
+
+- This file is blank and may not seem necessary, but it is very important to the structure of this project.
+
+- In python all import statements start from the root of the project directory.
+
+- The root of this project directory is where app.py is.
+
+- All import statements start from the root. This means that regardless of where you are importing something like the TodoRegister, you would have to do this:
+  `from resources.todo import TodoRegister`
+
+- There should be a \_\_init.py\_\_ file like this in any subdirectory of a flask project.
 
 #### todo.py
 
@@ -110,10 +143,21 @@ This is where the initial magic happens!
 
 ### .gitignore
 
+This lists all of the files that we do not want git to track.
+
 ### run.py
+
+- In production this is run instead of the code following if \_\_name\_\_ == "\_\_main\_\_": .... in app.py
+- This is because we are running the app with uwsgi webserver instead of the flask webserver which is **NOT FOR PRODUCTION**
 
 ### Procfile
 
 ### runtime.txt
 
 ### uwsgi.ini
+
+## Starting MongoDB
+
+## Testing with Postman
+
+## Heroku Deployment
