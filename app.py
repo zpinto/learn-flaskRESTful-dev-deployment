@@ -18,6 +18,7 @@ app.config["JWT_BLACKLIST_ENABLED"] = True  # enable blacklist feature
 # allow blacklisting for access and refresh tokens
 app.config["JWT_BLACKLIST_TOKEN_CHECKS"] = ["access", "refresh"]
 app.config["JWT_SECRET_KEY"] = "secret"
+
 api = Api(app)
 
 jwt = JWTManager(app)
