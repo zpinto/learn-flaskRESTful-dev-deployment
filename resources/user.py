@@ -41,7 +41,7 @@ class UserRegister(Resource):
 
         try:
             mongo.db.users.insert_one(
-                {"username": data["username"], "password": data["password"],}
+                {"username": data["username"], "password": data["password"]}
             )
 
             return {"message": "User created successfully."}, 201
