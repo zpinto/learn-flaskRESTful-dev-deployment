@@ -9,8 +9,9 @@ from resources.user import UserRegister, User, UserLogin, TokenRefresh, UserLogo
 from resources.todo import TodoRegister, Todo, TodoList
 
 app = Flask(__name__)
-app.config["MONGO_URI"] = os.environ.get(
-    "MONGODB_URI" + "?retryWrites=false", "mongodb://localhost:27017/todolistapp"
+app.config["MONGO_URI"] = (
+    os.environ.get("MONGODB_URI", "mongodb://localhost:27017/todolistapp")
+    + "?retryWrites=false"
 )
 app.config["PROPAGATE_EXCEPTIONS"] = True
 app.config["JWT_BLACKLIST_ENABLED"] = True  # enable blacklist feature
