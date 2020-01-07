@@ -1,4 +1,4 @@
 from app import app
-from db import db
+from db import mongo
 
-db.init_app(app)
+mongo.init_app(app)
