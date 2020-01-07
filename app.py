@@ -9,9 +9,7 @@ from resources.user import UserRegister, User, UserLogin, TokenRefresh, UserLogo
 from resources.todo import TodoRegister, Todo, TodoList
 
 app = Flask(__name__)
-app.config["MONGO_URI"] = os.environ.get(
-    "MONGODB_URI", "mongodb://localhost:27017/todolistapp"
-)
+app.config["MONGO_URI"] = "mongodb://localhost:27017/todolistapp"
 app.config["PROPAGATE_EXCEPTIONS"] = True
 app.config["JWT_BLACKLIST_ENABLED"] = True  # enable blacklist feature
 # allow blacklisting for access and refresh tokens
