@@ -602,18 +602,20 @@ You can create requests with different methods and bodies:
 
 You can import a postman collection:
 
+<img src='http://g.recordit.co/IBona33ULr.gif' title='Create Request' width='' alt='Create Request' />
+
 You can create an environment, that defines environment variables that you can use in your requests:
 
+<img src='http://g.recordit.co/8m3dtpXAWv.gif' title='Import Collection' width='' alt='Import Collection' />
+  
+  - In this example, you can see the environment varaibles in the environement and being used in the request
+
 You can write test scripts that run when you send a request:
+
+<img src='http://g.recordit.co/MM38v05mDT.gif' title='Test Scripts' width='' alt='Test Scripts' />
+  
+  - In this example, you can see that the test stores the returned value of the access_token and refresh_token into the environment variable, so that you do not have to do that yourself
 
 ### Application Flow in Postman
 
 ## Heroku Deployment
-
-```
-
-```
-
-```
-
-```
