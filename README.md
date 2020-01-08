@@ -618,4 +618,9 @@ You can write test scripts that run when you send a request:
 
 ### Application Flow in Postman
 
+<img src='https://recordit.co/0QeN6u12jr.gif' title='Application Flow' width='' alt='Application Flow' />
+  
+  - This is a postman walkthrough of the general flow of this todo API
+  - You can play with it yourself by importing the postman json file as a collection
+
 ## Heroku Deployment
