@@ -2,7 +2,7 @@
 
 ## Overview
 
-This repo provides sample code for a todo list api that uses the flaskRESTful framework, flask JWT for user authentication, and mongodb as a document based data base.
+This repo provides sample code for a todo list api that uses the flaskRESTful framework, flask JWT for user authentication, and mongodb as a document based database.
 
 Through this README and the rest of the repository, you will find detailed explanations for all code and a walkghrough on how to deploy this api to heroku.
 
@@ -112,6 +112,7 @@ This is where the initial magic happens!
   - api.add_resource takes the definition of the Resource class declared in the resources directory and the endpoint that resource's methods will be able to be called from
 
 - Initialize mongodb session and run app **only if the variable \_\_name\_\_ is equal to "\_\_main\_\_"**
+
   - This is only true when running the server locally during development
   - In production, run.py is executed instead
 
@@ -150,34 +151,43 @@ The user file is where the creation, login, and logout of users generally takes 
   `{url}/register`
 
   - This resource is used to create a new user in the users collection within the MongoDB database
+
   - Because this resource is only used for creating users, it only implements the post method
 
 - User
   `{url}/user/<string:username>`
 
   - This resource is used to get and delete users by passing the username as a parameter in the url and is generally intended for testing
+
   - In production, you would not want an endpoint like this to be public
 
 - UserLogin
   `{url}/login`
 
   - This is used to login a user.
+
   - The post request will use the \_user_parser to parse the body of the HTTP request being sent to the webserver.
+
   - The arguments from the body will be used to check if the usernam is valid and the password is correct
+
   - If the previous are correct, a access_token and a refresh_token are sent to the caller
+
   - The caller will use the access_token as the value for the Authorization HTTP header to make requests to the endpoints with the @jwt_required decorator
+
   - When the session expires, the caller can use the refresh_token as the value for the Authorization HTTP header to get back a new
 
 - UserLogout
   `{url}/logout`
 
   - This resource is used to logout the current user
+
   - When the caller wants to logout, the caller will use the access_token as the value for the Authorization HTTP header, so that their JWT id can be added to the blacklist and there session will be over
 
 - TokenRefresh
   `{url}/refresh`
 
   - This resource is used to get a new access_token when the callers session has expired
+
   - When the session expires, the caller can use the refresh_token as the value for the Authorization HTTP header and get back a newly generater access_token
 
 #### todo.py
@@ -185,20 +195,25 @@ The user file is where the creation, login, and logout of users generally takes 
 The todo file is where the creation, reading, updating, and destroying (CRUD) functionality of todos takes place.
 
 - Note: A fresh token is on that was aquired by logging in using the `{url}/login` endpoint and not just by refreshing a session with the the `{url}/refresh` endpoint
+
 - Note: Sometimes endpoints require fresh tokens when you are carrying out more serious actions like changing data
 
 * TodoRegister
   `{url}/createtodo`
 
   - The caller must have a fresh access token (@fresh_jwt_required) in order to call this endpoint
+
   - This resource is used to create a new todo in the todos collection within the MongoDB database
+
   - The post method will use \_todo_parser to parse the body of the request and put them into data
+
   - The name, description, and the owner_id(from get_jwt_identity()) are all key value pairs in the todo document
 
 * Todo
   `{url}/todo/<string:todo_id>`
 
   - The caller may need fresh access token (@fresh_jwt_required) or an access token that can be fresh or not (@jwt_required) based on what method the request is
+
   - This resource is used to to get, update, and delete a todos by passing the todo_id in the url as a param
 
     - GET:
@@ -234,6 +249,7 @@ This lists all of the files that we do not want git to track.
 ### run.py
 
 - In production this is run instead of the code following if \_\_name\_\_ == "\_\_main\_\_": .... in app.py
+
 - This is because we are running the app with uwsgi webserver instead of the flask webserver which is **NOT FOR PRODUCTION**
 
 ### Procfile
@@ -577,6 +593,20 @@ You should see a warning saying something like "WARNING: This is a development s
 As you make requests to the server, you will see them pop up in the console.
 
 ## Testing with Postman
+
+Postman allows you to test the endpoints of your api.
+
+You can create requests with different methods and bodies:
+
+<img src='http://g.recordit.co/IBona33ULr.gif' title='Create Request' width='' alt='Create Request' />
+
+You can import a postman collection:
+
+You can create an environment, that defines environment variables that you can use in your requests:
+
+You can write test scripts that run when you send a request:
+
+### Application Flow in Postman
 
 ## Heroku Deployment
 
