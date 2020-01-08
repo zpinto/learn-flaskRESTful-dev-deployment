@@ -506,11 +506,11 @@ pip install -r requirements.txt
 python app.py
 ```
 
-## Starting MongoDB
+## Starting and Logging Onto MongoDB
 
 Starting MongoDB is different based on the system that you are using.
 
-If you downloaded mongodb-communtiy using brew, follow the steps bellow to start or stop the service:
+If you downloaded mongodb-communtiy using brew, follow the steps below to start or stop the service:
 
 ```
 brew services start mongodb-community
@@ -518,9 +518,53 @@ brew services start mongodb-community
 brew services stop mongodb-community
 ```
 
+If you installed mongodb differently, refer to the installation instructions ([Windows Installation](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-windows/)) ([Mac Installation](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-os-x/))
+
+If you would like to login to the MongoDB console, run this command:
+
+```
+mongo
+```
+
+From here, you can execute several [commands](https://docs.mongodb.com/manual/reference/mongo-shell/)
+
 ## Initializing ViratualEnv
 
+To initialize a virtualenv on MacOSX or from the git bash terminal in windows, run the following command:
+
+```
+virtualenv <env_name>
+```
+
+In order to start using the virtual environment, run this command:
+
+```
+source /path/to/<env_name>/bin/activate
+```
+
+To install python modules in your virtual env, run this command:
+
+```
+pip install <module_name>
+```
+
+If you want to install all of the contents of a requirements.txt, run this command from the same directory as requirements.txt:
+
+```
+pip install -r requirements.txt
+```
+
+To stop using this virtual environment, run this command:
+
+```
+deactivate
+```
+
+In the case that you do not have a Mac or these commands do not work, refer to the [documentation](https://virtualenv.pypa.io/en/latest/userguide/)
+
 ## Starting Flask Dev Server
+
+In order to run the Flask development server on your own device, you should be checked into your virtual environment. If you have not yet done that, refer to [Initializing VirutalEnv](#Initializing-VirtualEnv)
 
 ## Testing with Postman
 
