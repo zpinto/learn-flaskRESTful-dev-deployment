@@ -564,7 +564,17 @@ In the case that you do not have a Mac or these commands do not work, refer to t
 
 ## Starting Flask Dev Server
 
-In order to run the Flask development server on your own device, you should be checked into your virtual environment. If you have not yet done that, refer to [Initializing VirutalEnv](#Initializing-VirtualEnv)
+In order to run the Flask development server on your own device, you should be checked into your virtual environment. If you have not yet done that, refer to [Initializing VirutalEnv](#initializing-virtualenv)
+
+To run the dev server, run the command:
+
+```
+python app.py
+```
+
+You should see a warning saying something like "WARNING: This is a development server. Do not use it in a production deployment."
+
+As you make requests to the server, you will see them pop up in the console.
 
 ## Testing with Postman
 
