@@ -65,7 +65,7 @@ Postman is a great tool that allows us to test each endpoint of our API in devel
   - An extension of Flask that helps developers build APIs that follow REST principles faster
   - Allows you to create resource classes that have HTTP methods as member functions
 
-**All overided HTTP methods in Flask-RESTful resources must take the exact same arguments**
+**All overided HTTP methods in a Flask-RESTful resources must take the exact same arguments**
 
 ### Flask-JWT/ Flask-JWT-Extended ([Documentation](https://flask-jwt-extended.readthedocs.io/en/stable/))
 
@@ -486,7 +486,37 @@ RETURNS:
 []                         : Array of todo objects
 ```
 
+## Running Project Locally
+
+To run this locally on MacOSX, run the following commands
+
+```
+brew services start mongodb-community
+
+git clone https://github.com/zpinto/learn-flaskRESTful-dev-deployment.git
+
+cd learn-flaskRESTful-dev-deployment
+
+virtualenv env
+
+source env/bin/activate
+
+pip install -r requirements.txt
+
+python app.py
+```
+
 ## Starting MongoDB
+
+Starting MongoDB is different based on the system that you are using.
+
+If you downloaded mongodb-communtiy using brew, follow the steps bellow to start or stop the service:
+
+```
+brew services start mongodb-community
+
+brew services stop mongodb-community
+```
 
 ## Initializing ViratualEnv
 
@@ -495,6 +525,10 @@ RETURNS:
 ## Testing with Postman
 
 ## Heroku Deployment
+
+```
+
+```
 
 ```
 
