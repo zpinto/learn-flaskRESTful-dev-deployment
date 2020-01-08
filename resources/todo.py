@@ -87,11 +87,6 @@ class Todo(Resource):
         except:
             return {"message": "An error occurred looking up the todo"}, 500
 
-        try:
-            todo = mongo.db.todos.find_one({"_id": ObjectId(todo_id)})
-        except:
-            return {"message": "An error occurred looking up the todo"}, 500
-
         if not todo:
             return {"message": "Todo not found"}, 404
 

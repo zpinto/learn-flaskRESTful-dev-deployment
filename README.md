@@ -138,7 +138,7 @@ This holds all of the defined resources for the API. They are all subclasses of 
 - All import statements start from the root. This means that regardless of where you are importing something like the TodoRegister, you would have to do this:
   `from resources.todo import TodoRegister`
 
-- There should be a \_\_init.py\_\_ file like this in any subdirectory of a flask project.
+- There should be a \_\_init\_\_.py file like this in any subdirectory of a flask project.
 
 #### user.py
 
@@ -149,13 +149,13 @@ The user file is where the creation, login, and logout of users generally takes 
 - UserRegister
   `{url}/register`
 
-  - This resource is used to create new users in the users collection within the MongoDB database
+  - This resource is used to create a new user in the users collection within the MongoDB database
   - Because this resource is only used for creating users, it only implements the post method
 
 - User
   `{url}/user/<string:username>`
 
-  - This resource is used to get and delete users and is generally intended for testing
+  - This resource is used to get and delete users by passing the username as a parameter in the url and is generally intended for testing
   - In production, you would not want an endpoint like this to be public
 
 - UserLogin
@@ -181,6 +181,51 @@ The user file is where the creation, login, and logout of users generally takes 
   - When the session expires, the caller can use the refresh_token as the value for the Authorization HTTP header and get back a newly generater access_token
 
 #### todo.py
+
+The todo file is where the creation, reading, updating, and destroying (CRUD) functionality of todos takes place.
+
+- Note: A fresh token is on that was aquired by logging in using the `{url}/login` endpoint and not just by refreshing a session with the the `{url}/refresh` endpoint
+- Note: Sometimes endpoints require fresh tokens when you are carrying out more serious actions like changing data
+
+* TodoRegister
+  `{url}/createtodo`
+
+  - The caller must have a fresh access token (@fresh_jwt_required) in order to call this endpoint
+  - This resource is used to create a new todo in the todos collection within the MongoDB database
+  - The post method will use \_todo_parser to parse the body of the request and put them into data
+  - The name, description, and the owner_id(from get_jwt_identity()) are all key value pairs in the todo document
+
+* Todo
+  `{url}/todo/<string:todo_id>`
+
+  - The caller may need fresh access token (@fresh_jwt_required) or an access token that can be fresh or not (@jwt_required) based on what method the request is
+  - This resource is used to to get, update, and delete a todos by passing the todo_id in the url as a param
+
+    - GET:
+
+      - Looks for the the todo by id
+      - Checks to make sure the caller is the owner
+      - Returns the todo
+
+    - DELETE:
+
+      - Looks for the the todo by id
+      - Checks to make sure the caller is the owner
+      - Deletes the todo
+
+    - PUT:
+
+      - The post method will use \_todo_parser to parse the body of the request and put them into data
+      - Looks for the the todo by id
+      - Checks to make sure the caller is the owner
+      - Updates the todo document with the key values in data
+      - Returns the updated todo
+
+* TodoList
+  `{url}/todolist`
+
+  - The caller may needs an access token that can fresh or not (@jwt_required)
+  - This resource implements a get method that will return a list of all of the current caller's todos
 
 ### .gitignore
 
@@ -219,8 +264,238 @@ This is the configuration that tells the uwsgi server how to run.
 
   - uwsgi is going to find the app object in run.py
 
+## Documentation
+
+Look at PostMan requests for examples
+
+Link: https://learn-flask-restful.herokuapp.com/
+
+[UserRegister](#UserRegister)  
+[User](#User)  
+[UserLogin](#UserLogin)
+[TokenRefresh](#TokenRefresh)
+[UserLogout](#UserLogout)
+[TodoRegister](#TodoRegister)
+[Todo](#Todo)
+[TodoList](#TodoList)
+
+### UserRegister
+
+**POST /register**
+
+Create user
+
+```
+BODY:
+
+"username":                 : String # required
+"password":                 : String # required
+
+RETURNS:
+
+"message":                  : String, was creation successful?
+```
+
+## User
+
+**GET /user/<string:username>**
+
+Get user
+
+```
+PARAMS:
+
+"username":                 : String # required
+
+RETURNS:
+
+"_id":                      : ObjectId
+"username":                 : String
+"password":                 : String
+```
+
+**DELETE /user/<string:username>**
+
+Get user
+
+```
+PARAMS:
+
+"username":                 : String # required
+
+RETURNS:
+
+"message":                  : String, was deletion successful?
+```
+
+### UserLogin
+
+**POST /login**
+
+Login to existing user
+
+```
+BODY:
+
+"username":                 : String # required
+"password":                 : String # required
+
+RETURNS:
+
+"message":                  : String, was logout successful?
+```
+
+### TokenRefresh
+
+**POST /refresh**
+
+Refresh access_token for current user
+
+```
+HEADERS:
+
+"Authorization":            : String # required, refresh_token
+
+RETURNS:
+
+"access_token":             : String, JWT access_token
+```
+
+### UserLogout
+
+**POST /logout**
+
+Logout of current user
+
+```
+HEADERS:
+
+"Authorization":            : String # required, access_token
+
+BODY:
+
+"username":                 : String # required
+"password":                 : String # required
+
+RETURNS:
+
+"access_token":             : String, JWT access_token
+"refresh_token":            : String, JWT refresh_token
+```
+
+### TodoRegister
+
+**POST /createtodo**
+
+Create todo
+
+```
+HEADERS:
+
+"Authorization":           : String # required, access_token
+
+BODY:
+
+"name":                    : String # required
+"description":             : String # required
+
+RETURNS:
+
+"message":                  : String, was created successful?
+```
+
+### Todo
+
+**GET /todo/<string:todo_id>**
+
+Create todo
+
+```
+HEADERS:
+
+"Authorization":           : String # required, access_token
+
+PARAMS:
+
+"todo_id":                 : String # required
+
+
+RETURNS:
+
+"_id":                     : ObjectId
+"name":                    : String
+"description":             : String
+```
+
+**PUT /todo/<string:todo_id>**
+
+Update todo
+
+```
+HEADERS:
+
+"Authorization":           : String # required, access_token
+
+PARAMS:
+
+"todo_id":                 : String # required
+
+BODY:
+
+"name":                    : String # required
+"description":             : String # required
+
+RETURNS:
+
+"_id":                     : ObjectId
+"name":                    : String
+"description":             : String
+```
+
+**PUT /todo/<string:todo_id>**
+
+Delete todo
+
+```
+HEADERS:
+
+"Authorization":           : String # required, access_token
+
+PARAMS:
+
+"todo_id":                 : String # required
+
+RETURNS:
+
+"message"                  : String, was deleted successful?
+```
+
+### TodoList
+
+**GET /todolist**
+
+Get all of current users todos
+
+```
+HEADERS:
+
+"Authorization":           : String # required, access_token
+
+RETURNS:
+
+[]                         : Array of todo objects
+```
+
 ## Starting MongoDB
+
+## Initializing ViratualEnv
+
+## Starting Flask Dev Server
 
 ## Testing with Postman
 
 ## Heroku Deployment
+
+```
+
+```
