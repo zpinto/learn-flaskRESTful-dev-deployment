@@ -602,11 +602,11 @@ You can create requests with different methods and bodies:
 
 You can import a postman collection:
 
-<img src='http://g.recordit.co/IBona33ULr.gif' title='Create Request' width='' alt='Create Request' />
+<img src='http://g.recordit.co/8m3dtpXAWv.gif' title='Create Request' width='' alt='Create Request' />
 
 You can create an environment, that defines environment variables that you can use in your requests:
 
-<img src='http://g.recordit.co/8m3dtpXAWv.gif' title='Import Collection' width='' alt='Import Collection' />
+<img src='http://g.recordit.co/JK2hhRjKD2.gif' title='Import Collection' width='' alt='Import Collection' />
   
   - In this example, you can see the environment varaibles in the environement and being used in the request
 
