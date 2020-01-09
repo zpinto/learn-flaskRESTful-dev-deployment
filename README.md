@@ -4,19 +4,19 @@
 
 This repo provides sample code for a todo list api that uses the flaskRESTful framework, flask JWT for user authentication, and mongodb as a document based database.
 
-Through this README and the rest of the repository, you will find detailed explanations for all code and a walkghrough on how to deploy this api to heroku.
+Through this README and the rest of the repository, you will find detailed explanations for all code and a walk-through on how to deploy this api to heroku.
 
 ## Table of Contents
 
-[Overview](#overview)
-[Prerequisites](#prerequisites)
-[Local Environment Setup](#local-environment-setup)
-[Dependency Walk-through](#dependency-walk-through)
-[Code Walk-through](#code-walk-through)
-[API Documentation](#api-documentation)
-[Running Project Locally](#running-project-locally)
-[Testing with Postman](#testing-with-postman)
-[Heroku Deployment](#heroku-deployment)
+- [Overview](#overview)
+- [Prerequisites](#prerequisites)
+- [Local Environment Setup](#local-environment-setup)
+- [Dependency Walk-through](#dependency-walk-through)
+- [Code Walk-through](#code-walk-through)
+- [API Documentation](#api-documentation)
+- [Running Project Locally](#running-project-locally)
+- [Testing with Postman](#testing-with-postman)
+- [Heroku Deployment](#heroku-deployment)
 
 ## Prerequisites
 
@@ -57,11 +57,11 @@ We will be using this database for our flask application. Our app will create an
 
 VirtualEnv is a python module that allows you to create a special directory to hold all of your projects dependencies. Ex. flask, flaskJWT, flaskpymongo. In order for you to create VirtaulEnvs for your projects, use the python package manager, pip, to install virtualenv.
 
-We use virtualenv because we want to have a seperate set of dependencies for each project. This is because some projects have the same dependencies, but rely on different vesrions. If we were pulling the dependencies from the same place, we could only have one of those versions at a time.
+We use virtualenv because we want to have a separate set of dependencies for each project. This is because some projects have the same dependencies, but rely on different versions. If we were pulling the dependencies from the same place, we could only have one of those versions at a time.
 
 ### Postman ([Installation](https://www.getpostman.com/downloads/))
 
-Postman is a great tool that allows us to test each endpoint of our API in development and in production. Install postman so that you can test the enpoints of your api as well.
+Postman is a great tool that allows us to test each endpoint of our API in development and in production. Install postman so that you can test the endpoints of your api as well.
 
 ## Dependency Walk-through
 
@@ -77,13 +77,13 @@ Postman is a great tool that allows us to test each endpoint of our API in devel
   - An extension of Flask that helps developers build APIs that follow REST principles faster
   - Allows you to create resource classes that have HTTP methods as member functions
 
-**All overided HTTP methods in a Flask-RESTful resources must take the exact same arguments**
+**All overridden HTTP methods in a Flask-RESTful resources must take the exact same arguments**
 
 ### Flask-JWT/ Flask-JWT-Extended ([Documentation](https://flask-jwt-extended.readthedocs.io/en/stable/))
 
 Allows your application to handle user authentication by issuing a user an auth and refresh token that must be sent each time the user makes a request to the API that requires authentication.
 
-After a given amount of time, the session experises and the user must get a new authtoken by logging in again or refreshing with their refresh token.
+After a given amount of time, the session expires and the user must get a new authtoken by logging in again or refreshing with their refresh token.
 
 More on this later and in the code itself!
 
@@ -93,19 +93,19 @@ This is a module that allows your app to talk to a MongoDB database directly fro
 
 ## Code Walk-through
 
-[requirements.txt](#requirementstxt)
-[app.py](#apppy)
-[db.py](#dbpy)
-[blacklist.py](#blacklistpy)
-[/resources](#-resources)
-[ \_\_init\_\_.py](#----init----py)
-[ user.py](#userpy)
-[ todo.py](#todopy)
-[.gitignore](#gitignore)
-[run.py](#runpy)
-[Procfile](#procfile)
-[runtime.txt](#runtimetxt)
-[uwsgi.ini](#uwsgiini)
+- [requirements.txt](#requirementstxt)
+- [app.py](#apppy)
+- [db.py](#dbpy)
+- [blacklist.py](#blacklistpy)
+- [/resources](#-resources)
+  - [ \_\_init\_\_.py](#----init----py)
+  - [ user.py](#userpy)
+  - [ todo.py](#todopy)
+- [.gitignore](#gitignore)
+- [run.py](#runpy)
+- [Procfile](#procfile)
+- [runtime.txt](#runtimetxt)
+- [uwsgi.ini](#uwsgiini)
 
 ### requirements.txt
 
@@ -129,7 +129,7 @@ This is where the initial magic happens!
 
 - Create a JWT authentication manager by passing app into the JWTManager constructor
 
-- Use jwt decorators to define callbacks for jwt behaviours in certain situations
+- Use jwt decorators to define callbacks for jwt behaviors in certain situations
 
   - Each is explained in the code via comments
 
@@ -152,7 +152,7 @@ Creates a set that holds blacklisted auth and refresh tokens. It is used in func
 
 ### /resources
 
-This holds all of the defined resources for the API. They are all subclasses of flaskRESTful's Resource class. Each of these resource classes can overide any of the HTTP methods.
+This holds all of the defined resources for the API. They are all subclasses of flaskRESTful's Resource class. Each of these resource classes can override any of the HTTP methods.
 
 #### \_\_init\_\_.py
 
@@ -194,7 +194,7 @@ The user file is where the creation, login, and logout of users generally takes 
 
   - The post request will use the \_user_parser to parse the body of the HTTP request being sent to the webserver.
 
-  - The arguments from the body will be used to check if the usernam is valid and the password is correct
+  - The arguments from the body will be used to check if the username is valid and the password is correct
 
   - If the previous are correct, a access_token and a refresh_token are sent to the caller
 
@@ -214,13 +214,13 @@ The user file is where the creation, login, and logout of users generally takes 
 
   - This resource is used to get a new access_token when the callers session has expired
 
-  - When the session expires, the caller can use the refresh_token as the value for the Authorization HTTP header and get back a newly generater access_token
+  - When the session expires, the caller can use the refresh_token as the value for the Authorization HTTP header and get back a newly generated access_token
 
 #### todo.py
 
 The todo file is where the creation, reading, updating, and destroying (CRUD) functionality of todos takes place.
 
-- Note: A fresh token is on that was aquired by logging in using the `{url}/login` endpoint and not just by refreshing a session with the the `{url}/refresh` endpoint
+- Note: A fresh token is on that was acquired by logging in using the `{url}/login` endpoint and not just by refreshing a session with the the `{url}/refresh` endpoint
 
 - Note: Sometimes endpoints require fresh tokens when you are carrying out more serious actions like changing data
 
@@ -312,14 +312,14 @@ Look at PostMan requests for examples
 
 Link: https://learn-flask-restful.herokuapp.com/
 
-[UserRegister](#UserRegister)  
-[User](#User)  
-[UserLogin](#UserLogin)  
-[TokenRefresh](#TokenRefresh)  
-[UserLogout](#UserLogout)  
-[TodoRegister](#TodoRegister)  
-[Todo](#Todo)  
-[TodoList](#TodoList)
+- [UserRegister](#UserRegister)
+- [User](#User)
+- [UserLogin](#UserLogin)
+- [TokenRefresh](#TokenRefresh)
+- [UserLogout](#UserLogout)
+- [TodoRegister](#TodoRegister)
+- [Todo](#Todo)
+- [TodoList](#TodoList)
 
 ### UserRegister
 
@@ -530,9 +530,9 @@ RETURNS:
 
 ## Running Project Locally
 
-[Starting and Logging Onto MongoDB](#starting-and-logging-onto-mongodb)  
-[Initializing ViratualEnv](#initializing-viratualenv)  
-[Starting Flask Dev Server](#starting-flask-dev-server)
+- [Starting and Logging Onto MongoDB](#starting-and-logging-onto-mongodb)
+- [Initializing VirtualEnv](#initializing-virtualenv)
+- [Starting Flask Dev Server](#starting-flask-dev-server)
 
 To run this locally on MacOSX, run the following commands
 
@@ -574,7 +574,7 @@ mongo
 
 From here, you can execute several [commands](https://docs.mongodb.com/manual/reference/mongo-shell/)
 
-### Initializing ViratualEnv
+### Initializing VirtualEnv
 
 To initialize a virtualenv on MacOSX or from the git bash terminal in windows, run the following command:
 
@@ -610,7 +610,7 @@ In the case that you do not have a Mac or these commands do not work, refer to t
 
 ### Starting Flask Dev Server
 
-In order to run the Flask development server on your own device, you should be checked into your virtual environment. If you have not yet done that, refer to [Initializing VirutalEnv](#initializing-virtualenv)
+In order to run the Flask development server on your own device, you should be checked into your virtual environment. If you have not yet done that, refer to [Initializing VirtualEnv](#initializing-virtualenv)
 
 To run the dev server, run the command:
 
@@ -638,7 +638,7 @@ You can create an environment, that defines environment variables that you can u
 
 <img src='http://g.recordit.co/JK2hhRjKD2.gif' title='Import Collection' width='' alt='Import Collection' />
   
-  - In this example, you can see the environment varaibles in the environement and being used in the request
+  - In this example, you can see the environment variables in the environment and being used in the request
 
 You can write test scripts that run when you send a request:
 
@@ -650,17 +650,17 @@ You can write test scripts that run when you send a request:
 
 <img src='https://recordit.co/0QeN6u12jr.gif' title='Application Flow' width='' alt='Application Flow' />
   
-  - This is a postman walkthrough of the general flow of this todo API
+  - This is a postman walk-through of the general flow of this todo API
   - You can play with it yourself by importing the postman json file as a collection
 
 ## Heroku Deployment
 
-[Put Project on Github](#put-project-on-github)  
-[Make Heroku Account](#make-heroku-account)  
-[Create Heroku Project](#create-heroku-project)  
-[Add mlab MongoDB](#add-mlab-mongodb)  
-[Deploy Branch](#deploy-branch)  
-[Debuging](#debuging)
+- [Put Project on Github](#put-project-on-github)
+- [Make Heroku Account](#make-heroku-account)
+- [Create Heroku Project](#create-heroku-project)
+- [Add mlab MongoDB](#add-mlab-mongodb)
+- [Deploy Branch](#deploy-branch)
+- [Debugging](#debugging)
 
 ### Put Project on Github
 
@@ -684,7 +684,7 @@ If you have not already, make a [Heroku](https://signup.heroku.com/) account!
 
 <img src='http://g.recordit.co/BGt2Ncmnls.gif' title='Create New Project' width='' alt='Create New Project' />
 
-3. Navigate to buildpacks and add Python
+3. Navigate to build packs and add Python
 
 <img src='http://g.recordit.co/ygo6HnYNUv.gif' title='Add Python' width='' alt='Add Python' />
 
@@ -696,7 +696,7 @@ In order for your Heroku app to save documents in a database, we need to add a M
 
 <img src='http://g.recordit.co/mas8CI3DrQ.gif' title='Add Mongo' width='' alt='Add Mongo' />
 
-2. Verify that you have the correct environment variable in your code by finding Herokus environment variable name containing the Monogo URL.
+2. Verify that you have the correct environment variable in your code by finding Heroku's environment variable name containing the Mongo URL.
 
 <img src='http://g.recordit.co/TX6k3n4DKI.gif' title='Verify Env Var' width='' alt='Verify Env Var' />
   
@@ -722,9 +722,9 @@ In order for your Heroku app to save documents in a database, we need to add a M
   
   - Note: I added the URL of the application to the "url" variable in the Postman environment that was made to help make application testing easy
 
-### Debuging
+### Debugging
 
-In the case that the above steps do not work, the best way to go about fixing the problem is lookin through the logs. To effectively do this, you will need to install the Heroku CLI. Refer [here](https://devcenter.heroku.com/articles/heroku-cli#getting-started) for information on how to install and get started with the CLI.
+In the case that the above steps do not work, the best way to go about fixing the problem is looking through the logs. To effectively do this, you will need to install the Heroku CLI. Refer [here](https://devcenter.heroku.com/articles/heroku-cli#getting-started) for information on how to install and get started with the CLI.
 
 Once you have the CLI installed, find the applications logs by executing this command:
 

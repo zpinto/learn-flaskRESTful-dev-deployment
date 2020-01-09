@@ -104,7 +104,7 @@ class Todo(Resource):
             # deletes first todo in todos collection with object id of todo['_id']
             mongo.db.todos.delete_one({"_id": todo.get("_id")})
         except:
-            return {"message": "An error occured while deleting the todo"}, 500
+            return {"message": "An error occurred while deleting the todo"}, 500
 
         return {"message": "The todo was deleted"}, 200
 
@@ -135,7 +135,7 @@ class Todo(Resource):
                 {"$set": {"name": data["name"], "description": data["description"]}},
             )
         except:
-            return {"message": "An error occured updating the todo"}, 500
+            return {"message": "An error occurred updating the todo"}, 500
 
         try:
             # look for first document in todos collection to have object id of todo_id

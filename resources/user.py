@@ -43,7 +43,7 @@ class UserRegister(Resource):
             # look for first document in users collection to have a username data['username']
             user = mongo.db.users.find_one({"username": data["username"]})
         except:
-            return {"message": "An error occured looking up the user"}, 500
+            return {"message": "An error occurred looking up the user"}, 500
 
         if user:
             return {"message": "A user with that username already exists"}, 400
@@ -56,7 +56,7 @@ class UserRegister(Resource):
 
             return {"message": "User created successfully."}, 201
         except:
-            return {"message": "An error occured creating the user"}, 500
+            return {"message": "An error occurred creating the user"}, 500
 
 
 class User(Resource):
@@ -75,7 +75,7 @@ class User(Resource):
             # look for first document in users collection to have a username equal to ata['username']
             user = mongo.db.users.find_one({"username": username})
         except:
-            return {"message": "An error occured looking up the user"}, 500
+            return {"message": "An error occurred looking up the user"}, 500
 
         if user:
             # return user converted to json
@@ -88,14 +88,14 @@ class User(Resource):
             # look for first document in users collection to have a username data['username']
             user = mongo.db.users.find_one({"username": username})
         except:
-            return {"message": "An error occured trying to look up this user"}, 500
+            return {"message": "An error occurred trying to look up this user"}, 500
 
         if user:
             try:
                 # delete first document in users collection to have a username equal to  username
                 mongo.db.users.delete_one({"username": username})
             except:
-                return {"message": "An error occured trying to delete this user"}, 500
+                return {"message": "An error occurred trying to delete this user"}, 500
             return {"message": "User was deleted"}, 200
         return {"message": "User not found"}, 404
 
@@ -103,7 +103,7 @@ class User(Resource):
 class UserLogin(Resource):
     """
     This resource implements a post method that allows a client to login to an existing 
-    account and recieve a access_token and refresh_token.
+    account and receive a access_token and refresh_token.
     """
 
     def post(self):
@@ -114,7 +114,7 @@ class UserLogin(Resource):
             # look for first document in users collection to have a username data['username']
             user = mongo.db.users.find_one({"username": data["username"]})
         except:
-            return {"message": "An error occured trying to look up this user"}, 500
+            return {"message": "An error occurred trying to look up this user"}, 500
 
         # safe_str_cmp checks to make passwords match
         if user and safe_str_cmp(user["password"], data["password"]):
