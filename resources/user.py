@@ -1,5 +1,3 @@
-import traceback
-
 from flask_restful import Resource, reqparse
 from werkzeug.security import safe_str_cmp
 from bson import json_util
@@ -13,9 +11,14 @@ from flask_jwt_extended import (
     get_raw_jwt,
 )
 from blacklist import BLACKLIST
+
 from db import mongo
 
-
+"""
+The following line of code defines a parser for the body of the HTTP requests
+that will be made to any of the resources in this file. Once a parser is defined,
+arguments can be added to it using the add_argument function.
+"""
 _user_parser = reqparse.RequestParser()
 _user_parser.add_argument(
     "username", type=str, required=True, help="This field cannot be blank."
@@ -26,20 +29,27 @@ _user_parser.add_argument(
 
 
 class UserRegister(Resource):
+    """
+    This resource implements a post method that allows the client to create a user with a 
+    unique username and a password.
+    """
+
     def post(self):
+        # call the parser on the body of the request and store dict of args in data
         data = _user_parser.parse_args()
 
         # search to make sure that another user with the same username does not exist
         try:
+            # look for first document in users collection to have a username data['username']
             user = mongo.db.users.find_one({"username": data["username"]})
         except:
-            traceback.print_exc()
             return {"message": "An error occured looking up the user"}, 500
 
         if user:
             return {"message": "A user with that username already exists"}, 400
 
         try:
+            # insert document into users collection
             mongo.db.users.insert_one(
                 {"username": data["username"], "password": data["password"]}
             )
@@ -51,30 +61,38 @@ class UserRegister(Resource):
 
 class User(Resource):
     """
-    This resource can be useful when testing our Flask app. We may not want to expose it to public users, but for the
-    sake of demonstration in this course, it can be useful when we are manipulating data regarding the users.
+    This resource implements a get and delete method that allow the client to get all of the data about a user 
+    or delete a user given the username.
+
+    This resource can be useful when testing our Flask app. We may not want to expose it to public users, but 
+    for the sake of demonstration in this course, it can be useful when we are manipulating data regarding the 
+    users.
     """
 
     @classmethod
     def get(cls, username):
         try:
+            # look for first document in users collection to have a username equal to ata['username']
             user = mongo.db.users.find_one({"username": username})
         except:
             return {"message": "An error occured looking up the user"}, 500
 
         if user:
+            # return user converted to json
             return json_util._json_convert(user), 200
         return {"message": "user not found"}, 404
 
     @classmethod
     def delete(cls, username):
         try:
+            # look for first document in users collection to have a username data['username']
             user = mongo.db.users.find_one({"username": username})
         except:
             return {"message": "An error occured trying to look up this user"}, 500
 
         if user:
             try:
+                # delete first document in users collection to have a username equal to  username
                 mongo.db.users.delete_one({"username": username})
             except:
                 return {"message": "An error occured trying to delete this user"}, 500
@@ -83,17 +101,29 @@ class User(Resource):
 
 
 class UserLogin(Resource):
+    """
+    This resource implements a post method that allows a client to login to an existing 
+    account and recieve a access_token and refresh_token.
+    """
+
     def post(self):
+        # call the parser on the body of the request and store dict of args in data
         data = _user_parser.parse_args()
 
-        user = mongo.db.users.find_one({"username": data["username"]})
+        try:
+            # look for first document in users collection to have a username data['username']
+            user = mongo.db.users.find_one({"username": data["username"]})
+        except:
+            return {"message": "An error occured trying to look up this user"}, 500
 
-        # this is what the `authenticate()` function did in security.py
+        # safe_str_cmp checks to make passwords match
         if user and safe_str_cmp(user["password"], data["password"]):
-            # identity= is what the identity() function did in security.py—now stored in the JWT
+            # create new fresh access token that binds to the identity of the user (users.get("_id"))
+            # identity=str(user.get("_id")) is what makes get_jwt_identity() in todo.py return the object id of the user
             access_token = create_access_token(
                 identity=str(user.get("_id")), fresh=True
             )
+            # create new refresh token that binds to the identity of the user (users.get("_id"))
             refresh_token = create_refresh_token(str(user.get("_id")))
             return {"access_token": access_token, "refresh_token": refresh_token}, 200
 
@@ -101,6 +131,12 @@ class UserLogin(Resource):
 
 
 class UserLogout(Resource):
+    """
+    This resource implements a post method that allows the user to log out and end their
+    session by adding the session id to the blacklist.
+    """
+
+    # requires the client making the HTTP request to have a valid access
     @jwt_required
     def post(self):
         jti = get_raw_jwt()["jti"]  # jti is "JWT ID", a unique identifier for a JWT.
@@ -109,6 +145,12 @@ class UserLogout(Resource):
 
 
 class TokenRefresh(Resource):
+    """
+    This resource implements a post method that allows the user to refresh their access_token,
+    so they can reestablish their session.
+    """
+
+    # requires the client making the HTTP request to have a refresh_token they received when they logged in
     @jwt_refresh_token_required
     def post(self):
         """
@@ -119,6 +161,8 @@ class TokenRefresh(Resource):
         given us their username and password for potentially a long time (if the token has been
         refreshed many times over).
         """
+        # gets the users identity which is their object id in mongo
         current_user = get_jwt_identity()
+        # create a new access token that is not fresh
         new_token = create_access_token(identity=current_user, fresh=False)
         return {"access_token": new_token}, 200
