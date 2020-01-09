@@ -43,7 +43,7 @@ In order to deploy to Heroku, the source code will be pulled from Github. For th
 
 ### Python 3 ([Installation](https://realpython.com/installing-python/))
 
-Flask is a python framework; therefor, you will need python to develop and run it.
+Flask is a python framework; therefore, you will need python to develop and run it.
 
 ### MongoDB ([Windows Installation](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-windows/)) ([Mac Installation](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-os-x/))
 
