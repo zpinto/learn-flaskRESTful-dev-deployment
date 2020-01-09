@@ -21,7 +21,7 @@ Through this README and the rest of the repository, you will find detailed expla
 
 - Basic understanding of git
 
-## Environment Setup
+## Local Environment Setup
 
 ### Github ([Join](https://github.com/join)) and Git ([Installation](https://git-scm.com/downloads))
 
@@ -624,3 +624,73 @@ You can write test scripts that run when you send a request:
   - You can play with it yourself by importing the postman json file as a collection
 
 ## Heroku Deployment
+
+### Put Project on Github
+
+1. Create a new repository
+
+<img src='http://g.recordit.co/1aUCZnGGWI.gif' title='Create Repo' width='' alt='Create Repo' />
+
+2. Push your repository to github
+
+<img src='http://g.recordit.co/D3AB2KV9RC.gif' title='Push Project' width='' alt='Push Project' />
+
+### Make Heroku Account
+
+If you have not already, make a [Heroku](https://signup.heroku.com/) account!
+
+### Create Heroku Project
+
+1. Once logged in, go to the [Heroku Dashboard](https://dashboard.heroku.com/apps)
+
+2. Create a new project and link it to the desired github repository! You will be prompted to log into your github account through Heroku.
+
+<img src='http://g.recordit.co/BGt2Ncmnls.gif' title='Create New Project' width='' alt='Create New Project' />
+
+3. Navigate to buildpacks and add Python
+
+<img src='http://g.recordit.co/ygo6HnYNUv.gif' title='Add Python' width='' alt='Add Python' />
+
+### Add mlab MongoDB
+
+In order for your Heroku app to save documents in the database, we need to add a MongoDB instance that Heroku can talk to. When testing the application locally, we are using a local instance of MongoDB.
+
+1. Add the MongoDB service in add-ons. It will prompt you for a credit card. You must give this information to move forward; however, you will not be charged since this app makes use of the free tier only.
+
+<img src='http://g.recordit.co/mas8CI3DrQ.gif' title='Add Mongo' width='' alt='Add Mongo' />
+
+2. Verify that you have the correct environment variable in your code by finding Herokus environment variable name containing the Monogo URL.
+
+<img src='http://g.recordit.co/TX6k3n4DKI.gif' title='Verify Env Var' width='' alt='Verify Env Var' />
+  
+  - Note: Refer to the code in app.py for a better explanation as to why we need to do this step
+
+### Deploy Branch
+
+1. Navigate to the deploy tab and deploy the desired branch!
+
+<img src='http://g.recordit.co/rduyqLkuUr.gif' title='Verify Env Var' width='' alt='Verify Env Var' />
+  
+  - Note: The build logs will appear below the "Deploy Branch" button
+
+2. Click the "View" button after the app deploys successfully.
+
+<img src='http://g.recordit.co/c2HV11SWrL.gif' title='View App' width='' alt='View App' />
+  
+  - Note: You should get a 404 not found error because the app does not have a "/" or home endpoint
+
+3. Use the app URL to test the functionality in Postman
+
+<img src='http://g.recordit.co/9MlZxfLVj5.gif' title='Test App' width='' alt='Test App' />
+  
+  - Note: I added the URL of the application to the "url" variable in the Postman environment that was made for easier testing of the application
+
+### Debuging
+
+can look at the logs with heroku cli
+
+here are instructions on how to download that:
+
+here is how you actually do it:
+
+### More Documentation
