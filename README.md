@@ -653,7 +653,7 @@ If you have not already, make a [Heroku](https://signup.heroku.com/) account!
 
 ### Add mlab MongoDB
 
-In order for your Heroku app to save documents in the database, we need to add a MongoDB instance that Heroku can talk to. When testing the application locally, we are using a local instance of MongoDB.
+In order for your Heroku app to save documents in a database, we need to add a MongoDB instance that Heroku can talk to. When testing the application locally, we are using a local instance of MongoDB. Heroku will not be able to talk to our local instance, so we will make a cloud instance with mLab.
 
 1. Add the MongoDB service in add-ons. It will prompt you for a credit card. You must give this information to move forward; however, you will not be charged since this app makes use of the free tier only.
 
@@ -683,14 +683,14 @@ In order for your Heroku app to save documents in the database, we need to add a
 
 <img src='http://g.recordit.co/9MlZxfLVj5.gif' title='Test App' width='' alt='Test App' />
   
-  - Note: I added the URL of the application to the "url" variable in the Postman environment that was made for easier testing of the application
+  - Note: I added the URL of the application to the "url" variable in the Postman environment that was made to help make application testing easy
 
 ### Debuging
 
-can look at the logs with heroku cli
+In the case that the above steps do not work, the best way to go about fixing the problem is lookin through the logs. To effectively do this, you will need to install the Heroku CLI. Refer [here](https://devcenter.heroku.com/articles/heroku-cli#getting-started) for information on how to install and get started with the CLI.
 
-here are instructions on how to download that:
+Once you have the CLI installed, find the applications logs by executing this command:
 
-here is how you actually do it:
-
-### More Documentation
+```
+heroku logs --app=<app_name>
+```
