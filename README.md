@@ -1,24 +1,22 @@
 # Learn flaskRESTful Development and Deployment
 
-- [Learn flaskRESTful Development and Deployment](#learn-flaskrestful-development-and-deployment)
-  - [Overview](#overview)
-  - [Prerequisites](#prerequisites)
-  - [Local Environment Setup](#local-environment-setup)
-  - [Dependency Walk-through](#dependency-walk-through)
-  - [Code Walk-through](#code-walk-through)
-  - [API Documentation](#api-documentation)
-  - [Running Project Locally](#running-project-locally)
-    - [Starting and Logging Onto MongoDB](#starting-and-logging-onto-mongodb)
-    - [Initializing ViratualEnv](#initializing-viratualenv)
-    - [Starting Flask Dev Server](#starting-flask-dev-server)
-  - [Testing with Postman](#testing-with-postman)
-  - [Heroku Deployment](#heroku-deployment)
-
 ## Overview
 
 This repo provides sample code for a todo list api that uses the flaskRESTful framework, flask JWT for user authentication, and mongodb as a document based database.
 
 Through this README and the rest of the repository, you will find detailed explanations for all code and a walkghrough on how to deploy this api to heroku.
+
+## Table of Contents
+
+[Overview](#overview)
+[Prerequisites](#prerequisites)
+[Local Environment Setup](#local-environment-setup)
+[Dependency Walk-through](#dependency-walk-through)
+[Code Walk-through](#code-walk-through)
+[API Documentation](#api-documentation)
+[Running Project Locally](#running-project-locally)
+[Testing with Postman](#testing-with-postman)
+[Heroku Deployment](#heroku-deployment)
 
 ## Prerequisites
 
@@ -95,19 +93,19 @@ This is a module that allows your app to talk to a MongoDB database directly fro
 
 ## Code Walk-through
 
-- [requirements.txt](#requirementstxt)
-  - [app.py](#apppy)
-  - [db.py](#dbpy)
-  - [blacklist.py](#blacklistpy)
-  - [/resources](#-resources)
-    - [\_\_init\_\_.py](#----init----py)
-    - [user.py](#userpy)
-    - [todo.py](#todopy)
-  - [.gitignore](#gitignore)
-  - [run.py](#runpy)
-  - [Procfile](#procfile)
-  - [runtime.txt](#runtimetxt)
-  - [uwsgi.ini](#uwsgiini)
+[requirements.txt](#requirementstxt)
+[app.py](#apppy)
+[db.py](#dbpy)
+[blacklist.py](#blacklistpy)
+[/resources](#-resources)
+[ \_\_init\_\_.py](#----init----py)
+[ user.py](#userpy)
+[ todo.py](#todopy)
+[.gitignore](#gitignore)
+[run.py](#runpy)
+[Procfile](#procfile)
+[runtime.txt](#runtimetxt)
+[uwsgi.ini](#uwsgiini)
 
 ### requirements.txt
 
@@ -532,10 +530,9 @@ RETURNS:
 
 ## Running Project Locally
 
-- [Running Project Locally](#running-project-locally)
-  - [Starting and Logging Onto MongoDB](#starting-and-logging-onto-mongodb)
-  - [Initializing ViratualEnv](#initializing-viratualenv)
-  - [Starting Flask Dev Server](#starting-flask-dev-server)
+[Starting and Logging Onto MongoDB](#starting-and-logging-onto-mongodb)  
+[Initializing ViratualEnv](#initializing-viratualenv)  
+[Starting Flask Dev Server](#starting-flask-dev-server)
 
 To run this locally on MacOSX, run the following commands
 
@@ -658,13 +655,12 @@ You can write test scripts that run when you send a request:
 
 ## Heroku Deployment
 
-- [Heroku Deployment](#heroku-deployment)
-  - [Put Project on Github](#put-project-on-github)
-  - [Make Heroku Account](#make-heroku-account)
-  - [Create Heroku Project](#create-heroku-project)
-  - [Add mlab MongoDB](#add-mlab-mongodb)
-  - [Deploy Branch](#deploy-branch)
-  - [Debuging](#debuging)
+[Put Project on Github](#put-project-on-github)  
+[Make Heroku Account](#make-heroku-account)  
+[Create Heroku Project](#create-heroku-project)  
+[Add mlab MongoDB](#add-mlab-mongodb)  
+[Deploy Branch](#deploy-branch)  
+[Debuging](#debuging)
 
 ### Put Project on Github
 
