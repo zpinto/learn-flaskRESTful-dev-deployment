@@ -4,51 +4,15 @@
   - [Overview](#overview)
   - [Prerequisites](#prerequisites)
   - [Local Environment Setup](#local-environment-setup)
-    - [Github ([Join](https://github.com/join)) and Git ([Installation](https://git-scm.com/downloads))](#github---join--https---githubcom-join---and-git---installation--https---git-scmcom-downloads--)
-    - [Python 3 ([Installation](https://realpython.com/installing-python/))](#python-3---installation--https---realpythoncom-installing-python---)
-    - [MongoDB ([Windows Installation](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-windows/)) ([Mac Installation](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-os-x/))](#mongodb---windows-installation--https---docsmongodbcom-manual-tutorial-install-mongodb-on-windows------mac-installation--https---docsmongodbcom-manual-tutorial-install-mongodb-on-os-x---)
-    - [Virtual Env ([Installation](https://virtualenv.pypa.io/en/latest/installation/))](#virtual-env---installation--https---virtualenvpypaio-en-latest-installation---)
-    - [Postman ([Installation](https://www.getpostman.com/downloads/))](#postman---installation--https---wwwgetpostmancom-downloads---)
   - [Dependency Walk-through](#dependency-walk-through)
-    - [FlaskRESTful ([Documentation](https://flask-restful.readthedocs.io/en/latest/))](#flaskrestful---documentation--https---flask-restfulreadthedocsio-en-latest---)
-    - [Flask-JWT/ Flask-JWT-Extended ([Documentation](https://flask-jwt-extended.readthedocs.io/en/stable/))](#flask-jwt--flask-jwt-extended---documentation--https---flask-jwt-extendedreadthedocsio-en-stable---)
-    - [Flask-PyMongo ([Documentation](https://flask-pymongo.readthedocs.io/en/latest/))](#flask-pymongo---documentation--https---flask-pymongoreadthedocsio-en-latest---)
   - [Code Walk-through](#code-walk-through)
-    - [requirements.txt](#requirementstxt)
-    - [app.py](#apppy)
-    - [db.py](#dbpy)
-    - [blacklist.py](#blacklistpy)
-    - [/resources](#-resources)
-      - [\_\_init\_\_.py](#----init----py)
-      - [user.py](#userpy)
-      - [todo.py](#todopy)
-    - [.gitignore](#gitignore)
-    - [run.py](#runpy)
-    - [Procfile](#procfile)
-    - [runtime.txt](#runtimetxt)
-    - [uwsgi.ini](#uwsgiini)
-  - [Documentation](#documentation)
-    - [UserRegister](#userregister)
-  - [User](#user)
-    - [UserLogin](#userlogin)
-    - [TokenRefresh](#tokenrefresh)
-    - [UserLogout](#userlogout)
-    - [TodoRegister](#todoregister)
-    - [Todo](#todo)
-    - [TodoList](#todolist)
+  - [API Documentation](#api-documentation)
   - [Running Project Locally](#running-project-locally)
-  - [Starting and Logging Onto MongoDB](#starting-and-logging-onto-mongodb)
-  - [Initializing ViratualEnv](#initializing-viratualenv)
-  - [Starting Flask Dev Server](#starting-flask-dev-server)
+    - [Starting and Logging Onto MongoDB](#starting-and-logging-onto-mongodb)
+    - [Initializing ViratualEnv](#initializing-viratualenv)
+    - [Starting Flask Dev Server](#starting-flask-dev-server)
   - [Testing with Postman](#testing-with-postman)
-    - [Application Flow in Postman](#application-flow-in-postman)
   - [Heroku Deployment](#heroku-deployment)
-    - [Put Project on Github](#put-project-on-github)
-    - [Make Heroku Account](#make-heroku-account)
-    - [Create Heroku Project](#create-heroku-project)
-    - [Add mlab MongoDB](#add-mlab-mongodb)
-    - [Deploy Branch](#deploy-branch)
-    - [Debuging](#debuging)
 
 ## Overview
 
@@ -130,6 +94,20 @@ More on this later and in the code itself!
 This is a module that allows your app to talk to a MongoDB database directly from python. This will be used liberally in the code.
 
 ## Code Walk-through
+
+- [requirements.txt](#requirementstxt)
+  - [app.py](#apppy)
+  - [db.py](#dbpy)
+  - [blacklist.py](#blacklistpy)
+  - [/resources](#-resources)
+    - [\_\_init\_\_.py](#----init----py)
+    - [user.py](#userpy)
+    - [todo.py](#todopy)
+  - [.gitignore](#gitignore)
+  - [run.py](#runpy)
+  - [Procfile](#procfile)
+  - [runtime.txt](#runtimetxt)
+  - [uwsgi.ini](#uwsgiini)
 
 ### requirements.txt
 
@@ -330,7 +308,7 @@ This is the configuration that tells the uwsgi server how to run.
 
   - uwsgi is going to find the app object in run.py
 
-## Documentation
+## API Documentation
 
 Look at PostMan requests for examples
 
@@ -338,11 +316,11 @@ Link: https://learn-flask-restful.herokuapp.com/
 
 [UserRegister](#UserRegister)  
 [User](#User)  
-[UserLogin](#UserLogin)
-[TokenRefresh](#TokenRefresh)
-[UserLogout](#UserLogout)
-[TodoRegister](#TodoRegister)
-[Todo](#Todo)
+[UserLogin](#UserLogin)  
+[TokenRefresh](#TokenRefresh)  
+[UserLogout](#UserLogout)  
+[TodoRegister](#TodoRegister)  
+[Todo](#Todo)  
 [TodoList](#TodoList)
 
 ### UserRegister
@@ -554,6 +532,11 @@ RETURNS:
 
 ## Running Project Locally
 
+- [Running Project Locally](#running-project-locally)
+  - [Starting and Logging Onto MongoDB](#starting-and-logging-onto-mongodb)
+  - [Initializing ViratualEnv](#initializing-viratualenv)
+  - [Starting Flask Dev Server](#starting-flask-dev-server)
+
 To run this locally on MacOSX, run the following commands
 
 ```
@@ -572,7 +555,7 @@ pip install -r requirements.txt
 python app.py
 ```
 
-## Starting and Logging Onto MongoDB
+### Starting and Logging Onto MongoDB
 
 Starting MongoDB is different based on the system that you are using.
 
@@ -594,7 +577,7 @@ mongo
 
 From here, you can execute several [commands](https://docs.mongodb.com/manual/reference/mongo-shell/)
 
-## Initializing ViratualEnv
+### Initializing ViratualEnv
 
 To initialize a virtualenv on MacOSX or from the git bash terminal in windows, run the following command:
 
@@ -628,7 +611,7 @@ deactivate
 
 In the case that you do not have a Mac or these commands do not work, refer to the [documentation](https://virtualenv.pypa.io/en/latest/userguide/)
 
-## Starting Flask Dev Server
+### Starting Flask Dev Server
 
 In order to run the Flask development server on your own device, you should be checked into your virtual environment. If you have not yet done that, refer to [Initializing VirutalEnv](#initializing-virtualenv)
 
@@ -674,6 +657,14 @@ You can write test scripts that run when you send a request:
   - You can play with it yourself by importing the postman json file as a collection
 
 ## Heroku Deployment
+
+- [Heroku Deployment](#heroku-deployment)
+  - [Put Project on Github](#put-project-on-github)
+  - [Make Heroku Account](#make-heroku-account)
+  - [Create Heroku Project](#create-heroku-project)
+  - [Add mlab MongoDB](#add-mlab-mongodb)
+  - [Deploy Branch](#deploy-branch)
+  - [Debuging](#debuging)
 
 ### Put Project on Github
 
